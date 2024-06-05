@@ -37,7 +37,7 @@ public class SpringSecurityConfig {
         httpSecurity.addFilterBefore(corsFilter, SessionManagementFilter.class);
 //        httpSecurity.csrf(csrf->csrf.ignoringRequestMatchers("api/employees/**","api/todos/**"));
         httpSecurity.csrf(csrf->csrf.disable());
-//        httpSecurity.cors(AbstractHttpConfigurer::disable);
+        httpSecurity.cors(AbstractHttpConfigurer::disable);
         httpSecurity.anonymous(anonymous->anonymous.disable());
         httpSecurity.authorizeHttpRequests(requests ->
                         requests.requestMatchers("api/auth/**").permitAll()
