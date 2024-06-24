@@ -5,13 +5,12 @@ import com.example.empmanagement.dto.LoginRequestDto;
 import com.example.empmanagement.dto.RegisterDto;
 import com.example.empmanagement.entity.Role;
 import com.example.empmanagement.entity.User;
-import com.example.empmanagement.exception.ToDoAPIException;
+import com.example.empmanagement.exception.ResourceNotFoundException;
 import com.example.empmanagement.repository.RoleRepository;
 import com.example.empmanagement.repository.UserRepository;
 import com.example.empmanagement.security.JwtUtil;
 import com.example.empmanagement.service.AuthService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -38,11 +37,11 @@ public class AuthServiceImpl implements AuthService {
     public String register(RegisterDto registerDto) {
         // To check whether a user already exists with the same username
         if (userRepository.existsByUsername(registerDto.getUsername())) {
-            throw new ToDoAPIException(HttpStatus.BAD_REQUEST, "Username already exists");
+            throw new ResourceNotFoundException("Username already exists");
         }
         // To check whether a user already exists with the same email
         if (userRepository.existsByEmail(registerDto.getEmail())) {
-            throw new ToDoAPIException(HttpStatus.BAD_REQUEST, "Email already exists");
+            throw new ResourceNotFoundException("Email already exists");
         }
 
         // Creating a user from the DTO and to store in the user table
