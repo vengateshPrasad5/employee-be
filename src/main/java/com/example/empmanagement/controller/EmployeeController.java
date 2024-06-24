@@ -1,6 +1,7 @@
 package com.example.empmanagement.controller;
 
 import com.example.empmanagement.entity.Employee;
+import com.example.empmanagement.exception.ResourceNotFoundException;
 import com.example.empmanagement.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +20,23 @@ public class EmployeeController {
     }
 
     @PostMapping()
-    @ResponseStatus(HttpStatus.CREATED)
-    public Employee createEmployee(@RequestBody Employee employee){
-        return employeeService.saveEmployee(employee);
+    public ResponseEntity<String> createEmployee(@RequestBody Employee employee){
+        try {
+             employeeService.saveEmployee(employee);
+             return new ResponseEntity<>("Employee Saved", HttpStatus.CREATED);
+        } catch (ResourceNotFoundException e) {
+             throw new ResourceNotFoundException(e.getMessage());
+        }
     }
 
     @GetMapping
-    public List<Employee> getAllEmployees(){
-        return employeeService.getAllEmployees();
+    public ResponseEntity<Object> getAllEmployees(){
+        try {
+            List<Employee> employeeList = employeeService.getAllEmployees();
+            return new ResponseEntity<>(employeeList, HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
+        }
     }
 
     @GetMapping("{id}")
@@ -55,10 +65,12 @@ public class EmployeeController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteEmployee(@PathVariable("id") long employeeId){
-
-        employeeService.deleteEmployee(employeeId);
-
-        return new ResponseEntity<String>("Employee deleted successfully!.", HttpStatus.OK);
+        try {
+            employeeService.deleteEmployee(employeeId);
+            return new ResponseEntity<String>("Employee deleted successfully!.", HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
+        }
 
     }
 
