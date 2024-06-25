@@ -17,4 +17,4 @@ Login and Registration API URL
 
 POST Method:
 http://localhost:8080/api/auth/register
-http://localhost:8080   /api/auth/login
+http://localhost:8080/api/auth/login
