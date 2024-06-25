@@ -1,0 +1,20 @@
+Employee API URL
+
+GET Methods:
+http://localhost:8080/api/employees
+http://localhost:8080/api/employees/{employeeId}
+
+POST Method:
+http://localhost:8080/api/employees
+
+PUT Method:
+http://localhost:8080/api/employees/{employeeId}
+
+DELETE Method:
+http://localhost:8080/api/employees/{employeeId}
+
+Login and Registration API URL
+
+POST Method:
+http://localhost:8080/api/auth/register
+http://localhost:8080   /api/auth/login
