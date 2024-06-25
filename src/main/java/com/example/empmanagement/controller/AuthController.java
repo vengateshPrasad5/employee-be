@@ -25,7 +25,6 @@ public class AuthController {
             return new ResponseEntity<>(jwtAuthResponse,HttpStatus.OK);
         } catch (ResourceNotFoundException e) {
            throw new ResourceNotFoundException("User Not found");
-//           return new ResponseEntity<>("User Not found",HttpStatus.BAD_REQUEST);
         }
     }
 
